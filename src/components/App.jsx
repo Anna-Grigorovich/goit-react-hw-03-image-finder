@@ -7,7 +7,6 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Modal } from './Modal/Modal';
 import { Loader } from './Loader/Loader';
-import c from './Loader/Loader.module.css';
 import { Button } from './Button/Button';
 
 export class App extends Component {
@@ -27,6 +26,10 @@ export class App extends Component {
     const nextPage = this.state.page;
     const prevPage = prevState.page;
 
+    if (prevQuery !== nextQuery) {
+      this.setState({ query: [], status: 'pending' });
+    }
+
     if (prevQuery !== nextQuery || prevPage !== nextPage) {
       this.setState({ status: 'pending' });
       getImages(nextQuery, nextPage)
@@ -39,8 +42,11 @@ export class App extends Component {
         .catch(error => this.setState({ error, status: 'rejected' }));
     }
   }
+
   formSubmit = input => {
-    this.setState({ input: input.toLowerCase() });
+    if (input !== this.state.input) {
+      this.setState({ input: input.toLowerCase(), page: 1 });
+    }
   };
 
   toggleModal = () => {

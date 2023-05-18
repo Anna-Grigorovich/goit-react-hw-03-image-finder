@@ -1,4 +1,4 @@
-export default async function getImages(inputValue, page = 1) {
+export default async function getImages(inputValue, page) {
   const url = 'https://pixabay.com/api/';
   const API_KEY = '35107606-ce46f6a21b8dfbba75834de78';
   return await fetch(
