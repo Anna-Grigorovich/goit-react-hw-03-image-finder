@@ -26,9 +26,9 @@ export class App extends Component {
     const nextPage = this.state.page;
     const prevPage = prevState.page;
 
-    if (prevQuery !== nextQuery) {
-      this.setState({ query: [], status: 'pending' });
-    }
+    // if (prevQuery !== nextQuery) {
+    //   this.setState({ query: [], status: 'pending' });
+    // }
 
     if (prevQuery !== nextQuery || prevPage !== nextPage) {
       this.setState({ status: 'pending' });

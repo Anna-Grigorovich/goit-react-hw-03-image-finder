@@ -21,7 +21,7 @@ export const ImageGallery = ({ query, onClickImg }) => {
 };
 
 ImageGallery.propTypes = {
-  gallery: PropTypes.arrayOf(
+  query: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       webformatURL: PropTypes.string.isRequired,
