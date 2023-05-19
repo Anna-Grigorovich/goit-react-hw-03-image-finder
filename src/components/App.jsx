@@ -33,21 +33,41 @@ export class App extends Component {
     if (prevQuery !== nextQuery || prevPage !== nextPage) {
       this.setState({ status: 'pending' });
       getImages(nextQuery, nextPage)
-        .then(({ hits }) =>
-          this.setState({
-            query: [...prevState.query, ...hits],
-            status: 'resolved',
-          })
-        )
+        .then(({ hits }) => {
+          if (prevQuery === nextQuery) {
+            this.setState({
+              query: [...prevState.query, ...hits],
+              status: 'resolved',
+            });
+          } else {
+            this.setState({
+              query: [...hits],
+              status: 'resolved',
+            });
+          }
+        })
         .catch(error => this.setState({ error, status: 'rejected' }));
     }
   }
 
   formSubmit = input => {
     if (input !== this.state.input) {
+      // this.resetState();
       this.setState({ input: input.toLowerCase(), page: 1 });
     }
   };
+  // resetState = () => {
+  //   console.log(`rdt`);
+  //   this.setState({
+  //     input: '',
+  //     query: [],
+  //     error: null,
+  //     status: 'idle',
+  //     showModal: false,
+  //     largeImg: '',
+  //     page: 1,
+  //   });
+  // };
 
   toggleModal = () => {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
